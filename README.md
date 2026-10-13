@@ -11,7 +11,15 @@
 
 ## 安装
 
-### 方法一：通过 Git 克隆
+### 方法一：通过 npx 一键安装（推荐）
+
+```bash
+npx skills add https://github.com/Arcadiastra/ieee-transactions-writing-zh.git
+```
+
+需要已安装 Node.js 和 npm，运行后按提示选择目标工具和安装范围。
+
+### 方法二：通过 Git 克隆
 
 ```bash
 # 克隆到 Codex 的 skills 目录
@@ -21,7 +29,7 @@ git clone https://github.com/Arcadiastra/ieee-transactions-writing-zh.git ~/.age
 git clone https://github.com/Arcadiastra/ieee-transactions-writing-zh.git ~/.claude/skills/ieee-transactions-writing-zh
 ```
 
-### 方法二：手动安装
+### 方法三：手动安装
 
 1. 下载本项目的 ZIP 文件或克隆到本地。
 2. 将解压后的文件夹重命名为 `ieee-transactions-writing-zh`，复制到对应工具的 skills 目录：
