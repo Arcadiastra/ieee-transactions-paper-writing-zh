@@ -16,6 +16,7 @@ def audit(bib: Path, aux: Path | None = None, min_count: int | None = None) -> d
     all_entries, entries, controls, missing = parse_inputs(bib, aux)
     report = report_base(bib, "offline")
     report.update(total_entries=len(all_entries), selected_entries=len(entries),
+                  checked_entries=len(entries), partial=False,
                   control_entries=len(controls), selection="aux" if aux else "all")
     problems = report["issues"]
     for key, count in Counter(e["ID"] for e in all_entries + controls).items():

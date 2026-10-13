@@ -12,7 +12,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from audit_bibtex import audit, main as audit_main
-from check_updates import check_entry
+from check_updates import check_entry, main as updates_main
 from citation_common import authors, aux_keys, clean_doi, read_bib, report_base, write_report
 from verify_metadata import (LookupUnavailable, MetadataClient, compare, crossref_record,
                              datacite_record, main as verify_main, verify_entry)
@@ -305,6 +305,59 @@ class CitationTests(unittest.TestCase):
     def test_cli_requires_explicit_network_mode(self):
         with self.assertRaises(SystemExit), patch("sys.stderr", new=io.StringIO()):
             verify_main([str(self.bib), "--out-dir", str(self.root / "out")])
+
+    def test_limit_cli_reports_scope_in_markdown(self):
+        self.bib.write_text("\n".join(
+            "@misc{item%d, title={Example %d}, year={2024}, doi={10.1234/item%d}}" % (i, i, i)
+            for i in range(50)), encoding="utf-8")
+        for main, stem in ((verify_main, "metadata-check"), (updates_main, "publication-updates")):
+            with self.subTest(stem=stem):
+                out = self.root / stem
+                with patch("urllib.request.urlopen") as request, patch("sys.stderr", new=io.StringIO()):
+                    self.assertEqual(main([str(self.bib), "--cache-only", "--limit", "2",
+                                           "--out-dir", str(out)]), 2)
+                    request.assert_not_called()
+                data = json.loads((out / f"{stem}.json").read_text(encoding="utf-8"))
+                text = (out / f"{stem}.md").read_text(encoding="utf-8")
+                self.assertEqual((data["checked_entries"], data["selected_entries"], data["partial"]), (2, 50, True))
+                header = text.split("## Findings")[0]
+                for expected in ("**2 / 50**", "**PARTIAL**", "INCOMPLETE", "UNAVAILABLE: 2", "Selection: all"):
+                    self.assertIn(expected, header)
+
+    def test_report_full_coverage_with_source_failure(self):
+        for record in ({"status": "UNAVAILABLE"}, {"status": "PARTIAL", "complete": False},
+                       {"status": "MATCHED_FIELDS", "provider_complete": False}):
+            with self.subTest(record=record):
+                report = report_base(self.bib, "online")
+                report.update(selected_entries=1, checked_entries=1, partial=False,
+                              entries=[dict(record, key="one")])
+                stem = record["status"]
+                write_report(report, self.root / "reports", stem)
+                text = (self.root / "reports" / f"{stem}.md").read_text(encoding="utf-8")
+                self.assertIn("**FULL**", text)
+                self.assertIn("INCOMPLETE", text)
+
+    def test_report_complete_processing_and_unverified_statuses(self):
+        report = report_base(self.bib, "online")
+        report.update(selected_entries=2, checked_entries=2, partial=False,
+                      entries=[{"key": "one", "status": "MATCHED_FIELDS"},
+                               {"key": "two", "status": "NO_DOI"}])
+        write_report(report, self.root, "complete")
+        text = (self.root / "complete.md").read_text(encoding="utf-8")
+        for expected in ("**2 / 2**", "**FULL**", "PROCESSING_FINISHED", "NO_DOI: 1"):
+            self.assertIn(expected, text)
+
+    def test_offline_report_aux_scope_and_empty_selection(self):
+        aux = self.root / "main.aux"
+        for citation, count in (("one", 1), ("missing", 0)):
+            with self.subTest(citation=citation):
+                aux.write_text("\\citation{" + citation + "}", encoding="utf-8")
+                report = audit(self.bib, aux)
+                write_report(report, self.root, citation)
+                text = (self.root / f"{citation}.md").read_text(encoding="utf-8")
+                for expected in ("Selection: aux", "Bibliography entries: 2", f"**{count} / {count}**", "LOCAL_ONLY"):
+                    self.assertIn(expected, text)
+                self.assertIn("**FULL**" if count else "**EMPTY**", text)
 
     def test_retraction_notice_direction(self):
         record = {"DOI": "10.1234/notice", "title": ["Retraction notice"],

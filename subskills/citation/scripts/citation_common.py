@@ -7,6 +7,7 @@ import html
 import json
 import re
 import unicodedata
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import unquote
@@ -163,7 +164,34 @@ def write_report(report: dict, out: Path, stem: str) -> None:
     json_path, md_path = out / f"{stem}.json", out / f"{stem}.md"
     if json_path.exists() or md_path.exists():
         raise FileExistsError("Report already exists; choose a new --out-dir.")
+    selected = report.get("selected_entries")
+    checked = report.get("checked_entries", len(report["entries"]))
+    partial = report.get("partial", False) or (selected is not None and checked < selected)
+    coverage = "UNKNOWN" if selected is None else "EMPTY" if selected == 0 else "PARTIAL" if partial else "FULL"
+    statuses = Counter(record.get("status", "NOT_CHECKED") for record in report["entries"])
+    incomplete = (partial or report.get("provider_complete") is False or
+                  any(record.get("provider_complete") is False or record.get("complete") is False
+                      for record in report["entries"]) or
+                  any(status in statuses for status in ("UNAVAILABLE", "PARTIAL", "NOT_CHECKED")))
+    if report.get("mode") == "offline":
+        completion = "LOCAL_ONLY: offline audit only; publication facts were not verified."
+    elif incomplete:
+        completion = "INCOMPLETE: selected entries remain unprocessed or source retrieval was incomplete."
+    elif coverage in ("EMPTY", "UNKNOWN"):
+        completion = "NOT_ESTABLISHED: no nonempty, known selection was checked."
+    else:
+        completion = "PROCESSING_FINISHED: selected entries processed; see record statuses below."
     lines = [f"# Citation report: {stem}", "", report["scope"], "",
+             "## Check scope and completion", "",
+             f"- Mode: {cell(report.get('mode', 'unknown'))}",
+             f"- Selection: {cell(report.get('selection', 'unknown'))}",
+             f"- Bibliography entries: {cell(report.get('total_entries', 'unknown'))}",
+             f"- Processed / selected entries: **{checked} / {selected if selected is not None else 'unknown'}**",
+             f"- Coverage: **{coverage}** (relative to the selected entries).",
+             f"- Completion: {completion}",
+             "- Record statuses: " + (", ".join(f"{cell(status)}: {count}" for status, count in sorted(statuses.items()))
+                                        or "No records processed."),
+             "",
              f"Input SHA-256: `{report['input_sha256']}`", "",
              "Statuses are review aids, not proof of authenticity or fabrication.", "",
              "## Findings", "", "| Key | Severity | Code | Detail |", "| --- | --- | --- | --- |"]

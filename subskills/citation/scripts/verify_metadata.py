@@ -260,7 +260,7 @@ def main(argv=None) -> int:
     if args.timeout <= 0 or args.cache_hours < 0 or (args.limit is not None and args.limit <= 0):
         parser.error("Timeout/limit must be positive; cache-hours must be nonnegative")
     try:
-        _, selected, controls, missing = parse_inputs(args.bib, args.aux)
+        all_entries, selected, controls, missing = parse_inputs(args.bib, args.aux)
         if missing:
             raise ValueError("Undefined AUX citations: " + ", ".join(missing))
         if not selected or len({e['ID'] for e in selected}) != len(selected):
@@ -268,7 +268,8 @@ def main(argv=None) -> int:
         if any((args.out_dir / f"metadata-check.{ext}").exists() for ext in ("json", "md")):
             raise FileExistsError("Report already exists; choose a new --out-dir.")
         report = report_base(args.bib, "online" if args.online else "cache-only")
-        report.update(selected_entries=len(selected), checked_entries=len(selected[:args.limit]),
+        report.update(total_entries=len(all_entries), selection="aux" if args.aux else "all",
+                      selected_entries=len(selected), checked_entries=len(selected[:args.limit]),
                       partial=args.limit is not None and len(selected) > args.limit)
         client = MetadataClient(args.cache_dir or args.out_dir / "evidence", online=args.online,
                                 timeout=args.timeout, max_age=args.cache_hours * 3600, email=args.email)

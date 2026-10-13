@@ -66,14 +66,15 @@ def main(argv=None) -> int:
     if args.timeout <= 0 or args.cache_hours < 0 or (args.limit is not None and args.limit <= 0):
         parser.error("Timeout/limit must be positive; cache-hours must be nonnegative")
     try:
-        _, entries, _, missing = parse_inputs(args.bib, args.aux)
+        all_entries, entries, _, missing = parse_inputs(args.bib, args.aux)
         if missing or not entries or len({e['ID'] for e in entries}) != len(entries):
             raise ValueError("Missing, duplicate or empty citation selection; run offline audit first.")
         if any((args.out_dir / f"publication-updates.{ext}").exists() for ext in ("json", "md")):
             raise FileExistsError("Report already exists; choose a new --out-dir.")
         report = report_base(args.bib, "updates-online" if args.online else "updates-cache-only")
         report["scope"] = "Crossref indexed update notices only. NO_UPDATE_FOUND does not mean not retracted. Read publisher notices."
-        report.update(selected_entries=len(entries), checked_entries=len(entries[:args.limit]),
+        report.update(total_entries=len(all_entries), selection="aux" if args.aux else "all",
+                      selected_entries=len(entries), checked_entries=len(entries[:args.limit]),
                       partial=args.limit is not None and len(entries) > args.limit)
         client = MetadataClient(args.cache_dir or args.out_dir / "evidence", online=args.online,
                                 timeout=args.timeout, max_age=args.cache_hours * 3600)
