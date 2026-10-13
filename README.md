@@ -135,7 +135,7 @@ $ieee-transactions-writing-results-and-discussions-zh，检查结果分析是否
 - `metadata.trigger`：使用简体中文处理 IEEE Transactions 形式学术论文的触发场景；子 skill 进一步限定到对应章节。
 - `metadata.target-venue`：`IEEE Transactions journals`。
 - `metadata.language`：`zh-CN`。
-- `metadata.repository`：计划使用的 Git 仓库地址。
+- `metadata.repository`：本 skill 的 Github 仓库地址。
 - `allowed-tools`：列出文件读取与编辑、文件检索、命令执行和网页检索等工具名称；主 skill 与摘要子 skill 另列 `Task` 以支持独立审查。
 
 `allowed-tools` 中采用常见的工具名称约定。不同宿主可能使用不同名称或不支持该字段，实际可用性与权限由宿主决定；该声明不会自动授予权限。在要求 PowerShell 的环境中，命令必须使用 `pwsh`，遵守环境既有的错误处理与 UTF-8 编码要求。`metadata.trigger` 是描述性元数据，不保证宿主将它作为专用自动触发机制解析。
