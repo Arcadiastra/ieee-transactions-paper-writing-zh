@@ -1,4 +1,4 @@
-# ieee-transactions-writing-zh
+# IEEE Transactions 中文论文写作技能
 
 使用简体中文规划、撰写、修改和审查 IEEE Transactions 学术论文的写作技能套件。
 
@@ -26,9 +26,9 @@ git clone https://github.com/Arcadiastra/ieee-transactions-writing-zh.git ~/.cla
 1. 下载本项目的 ZIP 文件或克隆到本地。
 2. 将解压后的文件夹重命名为 `ieee-transactions-writing-zh`，复制到对应工具的 skills 目录：
 
-| 工具 | macOS / Linux | Windows |
-| --- | --- | --- |
-| Codex | `~/.agents/skills/` | `%USERPROFILE%\.agents\skills\` |
+| 工具        | macOS / Linux         | Windows                           |
+| ----------- | --------------------- | --------------------------------- |
+| Codex       | `~/.agents/skills/` | `%USERPROFILE%\.agents\skills\` |
 | Claude Code | `~/.claude/skills/` | `%USERPROFILE%\.claude\skills\` |
 
 ### 验证安装
