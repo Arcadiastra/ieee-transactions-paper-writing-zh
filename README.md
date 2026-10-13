@@ -4,6 +4,11 @@
 
 以贡献和创新机制为主线，强调肯定式表达、句间逻辑、章节照应，以及用定性的结果讨论解释机制价值。由一个主 skill 和七个章节子 skill 组成。
 
+> 即使这是一个 Agent 写作 skill，仍建议作者基于其思想，以简体中文**亲手完成底稿**。本 skill 更加提倡 AI 辅助规划、整理、翻译、修改和打磨，而非全权代写。
+> **写作即思考，底稿即逻辑。**
+
+> *——Although using AI to polish a manuscript is fine, the writing will become irrelevant when too much AI is applied.*
+
 ## 适用范围
 
 - 面向简体中文用户，指导智能体完成 IEEE Transactions 系列期刊论文的写作与审查。
