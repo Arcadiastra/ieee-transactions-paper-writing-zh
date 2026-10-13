@@ -27,9 +27,14 @@ def normalized(value: str) -> str:
 
 
 def clean_doi(value: str) -> str:
-    value = unquote(plain(value)).strip()
-    value = re.sub(r"^https?://(?:dx\.)?doi\.org/", "", value, flags=re.I)
-    return re.sub(r"^doi:\s*", "", value, flags=re.I).strip().lower()
+    # DOI identifiers are not prose: LaTeX parsing treats raw percent signs as comments.
+    value = re.sub(r"\\([%_#&{}])", r"\1", str(value).strip())
+    value = re.sub(r"^doi:\s*", "", value, flags=re.I)
+    value, is_url = re.subn(r"^https?://(?:dx\.)?doi\.org/", "", value, flags=re.I)
+    # Decode URLs once; a bare DOI may contain literal percent-escape-like text.
+    if is_url:
+        value = unquote(value)
+    return value.strip().lower()
 
 
 def valid_doi(value: str) -> bool:

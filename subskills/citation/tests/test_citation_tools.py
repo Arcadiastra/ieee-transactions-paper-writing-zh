@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 import urllib.error
+import urllib.parse
 from pathlib import Path
 from unittest.mock import patch
 
@@ -71,6 +72,55 @@ class CitationTests(unittest.TestCase):
 
     def test_doi_url_normalization(self):
         self.assertEqual(clean_doi("https://doi.org/10.1234/ABC"), "10.1234/abc")
+
+    def test_doi_url_percent_encoding(self):
+        cases = {
+            "https://doi.org/10.1234/abc%2Fdef": "10.1234/abc/def",
+            "https://doi.org/10.1234%2Fabc": "10.1234/abc",
+            "https://doi.org/10.1234/abc%25def": "10.1234/abc%def",
+            "https://doi.org/10.1234/abc%23def": "10.1234/abc#def",
+            "https://doi.org/10.1234/abc%252Fdef": "10.1234/abc%2fdef",
+            " DOI: HTTPS://DX.DOI.ORG/10.1234/ABC%2fDEF ": "10.1234/abc/def",
+        }
+        for raw, expected in cases.items():
+            with self.subTest(raw=raw):
+                self.assertEqual(clean_doi(raw), expected)
+                self.assertEqual(clean_doi(expected), expected)
+
+    def test_bare_doi_preserves_literal_percent(self):
+        for raw in ("10.1234/abc%def", "10.1234/abc%2Fdef"):
+            with self.subTest(raw=raw):
+                self.assertEqual(clean_doi(raw), raw.lower())
+
+    def test_doi_tex_escaped_characters(self):
+        self.assertEqual(clean_doi(r"doi:10.1234/a\_b\%25c"), "10.1234/a_b%25c")
+        self.assertEqual(clean_doi(r"https://doi.org/10.1234/a\%2Fb"), "10.1234/a/b")
+
+    def test_encoded_doi_queries_complete_identifier(self):
+        entries, _ = read_bib(self.bib)
+        for suffix, expected in (("abc%2Fdef", "abc/def"), ("abc%25def", "abc%def"),
+                                 ("abc%252Fdef", "abc%2fdef")):
+            with self.subTest(suffix=suffix):
+                entry = dict(entries[0], doi="https://doi.org/10.1234/" + suffix)
+                response = crossref()
+                response["message"]["DOI"] = "10.1234/" + expected
+                client = FakeClient([response])
+                result = verify_entry(entry, client)
+                self.assertEqual(client.urls, ["https://api.crossref.org/works/" +
+                                              urllib.parse.quote("10.1234/" + expected, safe="")])
+                self.assertEqual(result["status"], "MATCHED_FIELDS")
+
+    def test_percent_doi_mismatch_not_hidden(self):
+        entry = {"doi": "https://doi.org/10.1234/abc%25def", "title": "Same"}
+        record = {"doi": "10.1234/abc%xyz", "title": "Same"}
+        differences, _ = compare(entry, record)
+        self.assertIn("IDENTIFIER_MISMATCH", [d["reason"] for d in differences])
+
+    def test_encoded_doi_does_not_create_false_duplicate(self):
+        extra = '\n@misc{three, title={Different}, year={2024}, doi={10.1234/abc}}'
+        self.bib.write_text(BIB.replace("10.1234/example", "https://doi.org/10.1234/abc%2Fdef")
+                            + extra, encoding="utf-8")
+        self.assertNotIn("DUPLICATE_DOI", [p["code"] for p in audit(self.bib)["issues"]])
 
     def test_corporate_author(self):
         people, truncated = authors("{Research and Development Group} and Doe, Jane")
