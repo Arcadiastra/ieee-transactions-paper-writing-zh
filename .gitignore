@@ -1,0 +1,32 @@
+# Python environments and generated files
+__pycache__/
+*.py[cod]
+.venv/
+.venv-*/
+reports/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local credentials (keep distributable examples)
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Release archives and LaTeX build intermediates
+/*.zip
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# OS and editor temporary files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~

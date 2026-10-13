@@ -1,0 +1,6 @@
+interface:
+  display_name: "IEEE 引用核验"
+  short_description: "核查 IEEE Transactions 文献、出版元数据与引用支持关系，保持源文件不变"
+  default_prompt: "使用 $ieee-transactions-writing-citation-zh 先运行离线引用检查，再说明联网核验和原文审查计划。"
+policy:
+  allow_implicit_invocation: true

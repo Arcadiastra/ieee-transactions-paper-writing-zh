@@ -1,0 +1,6 @@
+interface:
+  display_name: "IEEE 摘要与关键词"
+  short_description: "使用简体中文组织 IEEE Transactions 摘要、关键词与自包含性审查"
+  default_prompt: "使用 $ieee-transactions-writing-abstract-zh 根据正文提炼摘要与关键词，先给出修改详案。"
+policy:
+  allow_implicit_invocation: true

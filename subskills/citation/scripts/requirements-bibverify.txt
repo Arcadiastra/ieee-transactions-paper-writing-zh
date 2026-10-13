@@ -1,0 +1,2 @@
+# Optional backend; install in its own Python 3.11+ environment.
+bibverify==0.5.0

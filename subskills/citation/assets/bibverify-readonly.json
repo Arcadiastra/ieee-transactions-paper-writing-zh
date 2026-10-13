@@ -1,0 +1,43 @@
+{
+  "language": "CN",
+  "encoding": "utf-8-sig",
+  "user_info": {
+    "email": "",
+    "app_name": "ieee-transactions-writing-zh"
+  },
+  "platforms": {
+    "crossref": {"enabled": true, "priority": 1, "use_polite_pool": false},
+    "openalex": {"enabled": false},
+    "semantic_scholar": {"enabled": false},
+    "pubmed": {"enabled": false},
+    "europe_pmc": {"enabled": false},
+    "core": {"enabled": false},
+    "unpaywall": {"enabled": false},
+    "dblp": {"enabled": false},
+    "arxiv": {"enabled": false},
+    "biorxiv": {"enabled": false},
+    "base": {"enabled": false},
+    "google_scholar": {"enabled": false}
+  },
+  "query_settings": {
+    "delay_between_requests": 1.0,
+    "timeout": 15,
+    "connect_timeout": 5,
+    "read_timeout": 15,
+    "max_retries": 2,
+    "backoff_factor": 1.0,
+    "stop_on_first_match": true,
+    "match_threshold": 0.86,
+    "ambiguous_threshold": 0.68,
+    "ambiguity_margin": 0.04,
+    "auto_update_threshold": 0.92,
+    "cache_enabled": false
+  },
+  "output_settings": {
+    "generate_report": false,
+    "generate_backup": false,
+    "generate_updated_bib": false,
+    "generate_review_bib": false,
+    "report_format": "json"
+  }
+}

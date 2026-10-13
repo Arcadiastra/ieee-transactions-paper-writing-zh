@@ -1,0 +1,6 @@
+interface:
+  display_name: "IEEE 引言与贡献"
+  short_description: "使用简体中文组织 IEEE Transactions 引言、研究缺口与贡献论证"
+  default_prompt: "使用 $ieee-transactions-writing-introduction-zh 审查引言的动机、研究缺口和贡献。"
+policy:
+  allow_implicit_invocation: true

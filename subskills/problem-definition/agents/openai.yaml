@@ -1,0 +1,6 @@
+interface:
+  display_name: "IEEE 问题定义"
+  short_description: "使用简体中文组织 IEEE Transactions 问题形式化、符号与困难分析"
+  default_prompt: "使用 $ieee-transactions-writing-problem-definition-zh 检查问题定义、符号与方法动机。"
+policy:
+  allow_implicit_invocation: true
