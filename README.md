@@ -1,8 +1,6 @@
 # IEEE Transactions 中文论文写作技能
 
-使用简体中文规划、撰写、修改和审查 IEEE Transactions 学术论文的写作技能套件。
-
-以贡献和创新机制为主线，强调肯定式表达、句间逻辑、章节照应，以及用定性的结果讨论解释机制价值。由一个主 skill 和七个章节子 skill 组成。
+IEEE Transactions 论文写作 Skill：面向 Codex、 Claude Code 等 Agents 的学术论文写作与审查，由一个主 skill 和七个章节子 skill 组成。
 
 即使这是一个 Agent 写作 skill，仍建议作者基于其思想，以简体中文**亲手完成底稿**。本 skill 更加提倡 AI 辅助规划、整理、翻译、修改和打磨，而非全权代写。
 
