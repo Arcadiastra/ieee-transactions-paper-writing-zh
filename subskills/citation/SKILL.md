@@ -33,7 +33,7 @@ metadata:
 - 引用靠近对应论断，尽量避免把整段不同主张交给段末一串文献承担。
 - **同一处连续并列引用不得超过 3 篇文献。** 超过时，应按具体子论断分配引用，或保留最直接、最具代表性的文献。同一处相邻的多个引用命令合并计数，编号范围按实际包含的文献篇数计数。
 - 相关工作按方法思想归类，并说明与当前问题的关系；避免按年份流水账或数量堆积。
-- 优先直接支持论断的原始研究；综述用于概括领域，不自动代替原始方法来源。
+- 优先直接支持论断的原始研究；综述用于概括领域，具体方法的引用尽量追溯到原始来源论文。
 - 引用已有组件和最接近工作，清楚区分继承与创新。
 
 ## 默认显示规范
@@ -84,11 +84,11 @@ CTLdash_repeated_names = {no}
 
 ### 脚本与原文核查
 
-- 开始批量核验前，读取 [工具说明](references/tools.md)，先运行只读的离线 BibTeX/AUX 检查。联网核验必须显式开启；不自动改写文献或 citation key。
-- 用户明确要求联网核验时，出版元数据优先使用已安装且版本兼容的 Bibverify 官方 CLI，按 [CLI 接入说明](references/bibverify-integration.md) 使用 `--dry-run --json`；禁止 `--apply`，不自动安装或升级。未安装或版本不兼容时使用 `scripts/verify_metadata.py`，说明实际后端，不掩盖已有的网络失败或字段冲突。
+- 开始批量核验前，读取 [工具说明](references/tools.md)，先运行只读的离线 BibTeX/AUX 检查。联网核验必须显式开启。
+- 用户明确要求联网核验时，出版元数据优先使用已安装且版本兼容的 Bibverify 官方 CLI，按 [CLI 接入说明](references/bibverify-integration.md) 使用 `--dry-run --json`；禁止 `--apply`，不自动安装或升级。未安装或版本不兼容时使用 `scripts/verify_metadata.py`，说明实际后端。
 - Bibverify 会核验整个输入 `.bib`，没有 `--aux` 过滤参数；仅核查已引用条目时先确认引用子集。撤稿、更正及关注声明通知仍使用 `scripts/check_updates.py`。网络失败、未被索引、元数据差异与原文不支持论断是不同结论，分别报告。
-- DOI 命中只证明返回了对应记录；查看比较字段、差异和未检查字段，不把内置脚本的 `MATCHED_FIELDS` 或 Bibverify 的 `verified` 写成“全部核验通过”。即使退出码为 0，也检查 `field_diffs` 中的补充或修订建议。没有撤稿通知也不能证明从未撤稿。
-- 对重点论断按 [引用支持关系流程](references/integrity-review.md) 阅读原文、记录证据位置。脚本不核验正文论断、不猜测 JCR 分区。
-- 公开工具选型与可吸收部分见 [来源比较](references/source-comparison.md)。采用其有用的核验思路，不自动引入其修改行为或覆盖本套件的格式规范。
+- DOI 命中只证明返回了对应记录；查看比较字段、差异和未检查字段，不把内置脚本的 `MATCHED_FIELDS` 或 Bibverify 的 `verified` 写成“全部核验通过”。即使退出码为 0，也检查 `field_diffs` 中的补充或修订建议。
+- 对重点论断按 [引用支持关系流程](references/integrity-review.md) 阅读原文、记录证据位置。
+- 公开工具选型与可吸收部分见 [来源比较](references/source-comparison.md)。采用其有用的核验思路。
 
 小修交付实际修改与简要结果；审计可用“条目、问题、来源、处理、核验状态”表。无需在普通改格式任务中自动扩展成完整文献综述。篇幅在硬限制以内。
