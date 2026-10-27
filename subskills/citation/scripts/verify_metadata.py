@@ -30,7 +30,7 @@ class MetadataClient:
         self.timeout, self.retries = timeout, retries
         self.interval, self.max_age = interval, max_age
         self.last_request = 0.0
-        self.headers = {"User-Agent": "ieee-transactions-writing-zh-citation/1.0"}
+        self.headers = {"User-Agent": "ieee-transactions-paper-writing-zh-citation/1.0"}
         if email:
             self.headers["User-Agent"] += f" (mailto:{email})"
         self.headers["Accept"] = "application/json"

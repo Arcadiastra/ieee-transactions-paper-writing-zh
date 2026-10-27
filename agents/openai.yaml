@@ -1,6 +1,6 @@
 interface:
-  display_name: "IEEE Transactions 写作"
+  display_name: "IEEE Transactions 论文写作"
   short_description: "使用简体中文组织 IEEE Transactions 论文写作、修改与审查"
-  default_prompt: "使用 $ieee-transactions-writing-zh 审查论文结构与贡献链，先给出修改详案。"
+  default_prompt: "使用 $ieee-transactions-paper-writing-zh 审查论文结构与贡献链，先给出修改详案。"
 policy:
   allow_implicit_invocation: true

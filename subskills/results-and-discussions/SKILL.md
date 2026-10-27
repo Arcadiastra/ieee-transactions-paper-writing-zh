@@ -1,5 +1,5 @@
 ---
-name: ieee-transactions-writing-results-and-discussions-zh
+name: ieee-transactions-paper-writing-results-and-discussions-zh
 description: 使用简体中文规划、撰写、修改和审查 IEEE Transactions 学术论文的实验设置与结果讨论。组织基线、指标和图表，以定性机制分析回应问题和方法，精简实验配置并禁止复述图表数值。
 license: MIT
 allowed-tools: Read Write Edit Glob Grep Bash WebSearch WebFetch
@@ -7,7 +7,7 @@ metadata:
   language: zh-CN
   trigger: 使用简体中文规划、撰写、修改和审查 IEEE Transactions 形式的学术论文的实验设置与结果讨论。
   target-venue: IEEE Transactions journals
-  repository: https://github.com/Arcadiastra/ieee-transactions-writing-zh.git
+  repository: https://github.com/Arcadiastra/ieee-transactions-paper-writing-zh.git
 ---
 # Results and Discussions
 

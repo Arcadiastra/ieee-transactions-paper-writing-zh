@@ -1,6 +1,6 @@
 interface:
   display_name: "IEEE 结果与讨论"
   short_description: "使用简体中文组织 IEEE Transactions 实验设置、图表与定性机制分析"
-  default_prompt: "使用 $ieee-transactions-writing-results-and-discussions-zh 审查结果讨论，避免复述图表数字。"
+  default_prompt: "使用 $ieee-transactions-paper-writing-results-and-discussions-zh 审查结果讨论，避免复述图表数字。"
 policy:
   allow_implicit_invocation: true

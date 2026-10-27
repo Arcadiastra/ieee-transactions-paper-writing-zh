@@ -18,7 +18,7 @@ IEEE Transactions 论文写作 Skill：面向 Codex、 Claude Code 等 Agents �
 ### 方法一：通过 npx 一键安装（推荐）
 
 ```bash
-npx skills add https://github.com/Arcadiastra/ieee-transactions-writing-zh.git
+npx skills add https://github.com/Arcadiastra/ieee-transactions-paper-writing-zh.git
 ```
 
 需要已安装 Node.js 和 npm，运行后按提示选择目标工具和安装范围。
@@ -27,16 +27,16 @@ npx skills add https://github.com/Arcadiastra/ieee-transactions-writing-zh.git
 
 ```bash
 # 克隆到 Codex 的 skills 目录
-git clone https://github.com/Arcadiastra/ieee-transactions-writing-zh.git ~/.agents/skills/ieee-transactions-writing-zh
+git clone https://github.com/Arcadiastra/ieee-transactions-paper-writing-zh.git ~/.agents/skills/ieee-transactions-paper-writing-zh
 
 # 克隆到 Claude Code 的 skills 目录
-git clone https://github.com/Arcadiastra/ieee-transactions-writing-zh.git ~/.claude/skills/ieee-transactions-writing-zh
+git clone https://github.com/Arcadiastra/ieee-transactions-paper-writing-zh.git ~/.claude/skills/ieee-transactions-paper-writing-zh
 ```
 
 ### 方法三：手动安装
 
 1. 下载本项目的 ZIP 文件或克隆到本地。
-2. 将解压后的文件夹重命名为 `ieee-transactions-writing-zh`，复制到对应工具的 skills 目录：
+2. 将解压后的文件夹重命名为 `ieee-transactions-paper-writing-zh`，复制到对应工具的 skills 目录：
 
 | 工具        | macOS / Linux         | Windows                           |
 | ----------- | --------------------- | --------------------------------- |
@@ -50,13 +50,13 @@ git clone https://github.com/Arcadiastra/ieee-transactions-writing-zh.git ~/.cla
 **Codex：**
 
 ```text
-$ieee-transactions-writing-zh
+$ieee-transactions-paper-writing-zh
 ```
 
 **Claude Code：**
 
 ```text
-/ieee-transactions-writing-zh
+/ieee-transactions-paper-writing-zh
 ```
 
 如果安装成功，该技能将被激活。
@@ -64,7 +64,7 @@ $ieee-transactions-writing-zh
 ## 结构与入口
 
 ```text
-ieee-transactions-writing-zh/
+ieee-transactions-paper-writing-zh/
 ├── SKILL.md
 ├── README.md
 ├── LICENSE
@@ -105,11 +105,11 @@ ieee-transactions-writing-zh/
 在支持 skill 名称调用的环境中，可使用：
 
 ```text
-$ieee-transactions-writing-zh，先审查论文结构与贡献链，给出修改详案，暂不改正文。
+$ieee-transactions-paper-writing-zh，先审查论文结构与贡献链，给出修改详案，暂不改正文。
 
-$ieee-transactions-writing-abstract-zh，按正文内容修改摘要，并提供原文、改文及修改理由。
+$ieee-transactions-paper-writing-abstract-zh，按正文内容修改摘要，并提供原文、改文及修改理由。
 
-$ieee-transactions-writing-results-and-discussions-zh，检查结果分析是否回应问题与机制，避免复述图表数字。
+$ieee-transactions-paper-writing-results-and-discussions-zh，检查结果分析是否回应问题与机制，避免复述图表数字。
 ```
 
 若宿主没有发现子 skill，指定对应文件路径，或通过主 skill 请求处理该章节。

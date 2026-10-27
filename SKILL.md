@@ -1,5 +1,5 @@
 ---
-name: ieee-transactions-writing-zh
+name: ieee-transactions-paper-writing-zh
 description: 使用简体中文规划、撰写、修改和审查 IEEE Transactions 学术论文。以贡献和创新机制为主线，协调七个子技能，组织论文框架与章节论证，强调肯定式表达、句间逻辑、跨章节照应及篇幅控制。
 license: MIT
 allowed-tools: Read Write Edit Glob Grep Bash WebSearch WebFetch Task
@@ -7,9 +7,9 @@ metadata:
   language: zh-CN
   trigger: 使用简体中文规划、撰写、修改和审查 IEEE Transactions 形式的学术论文。
   target-venue: IEEE Transactions journals
-  repository: https://github.com/Arcadiastra/ieee-transactions-writing-zh.git
+  repository: https://github.com/Arcadiastra/ieee-transactions-paper-writing-zh.git
 ---
-# IEEE Transactions Writing
+# IEEE Transactions Paper Writing
 
 ## 定位与使用
 

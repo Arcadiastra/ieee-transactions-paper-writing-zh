@@ -1,5 +1,5 @@
 ---
-name: ieee-transactions-writing-citation-zh
+name: ieee-transactions-paper-writing-citation-zh
 description: 使用简体中文规划、撰写、修改和审查 IEEE Transactions 学术论文的引用与参考文献。检索、筛选和核验文献，检查论断支持关系、发表版本、来源质量、出版元数据及 BibTeX 显示格式。
 license: MIT
 allowed-tools: Read Write Edit Glob Grep Bash WebSearch WebFetch
@@ -7,7 +7,7 @@ metadata:
   language: zh-CN
   trigger: 使用简体中文规划、撰写、修改和审查 IEEE Transactions 形式的学术论文的引用与参考文献。
   target-venue: IEEE Transactions journals
-  repository: https://github.com/Arcadiastra/ieee-transactions-writing-zh.git
+  repository: https://github.com/Arcadiastra/ieee-transactions-paper-writing-zh.git
 ---
 # Citation
 

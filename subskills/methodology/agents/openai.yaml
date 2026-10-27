@@ -1,6 +1,6 @@
 interface:
   display_name: "IEEE 方法论"
   short_description: "使用简体中文组织 IEEE Transactions 创新机制、理论解释与方法图"
-  default_prompt: "使用 $ieee-transactions-writing-methodology-zh 检查方法章节如何回应问题与贡献。"
+  default_prompt: "使用 $ieee-transactions-paper-writing-methodology-zh 检查方法章节如何回应问题与贡献。"
 policy:
   allow_implicit_invocation: true

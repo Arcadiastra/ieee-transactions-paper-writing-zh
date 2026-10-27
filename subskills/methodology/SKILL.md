@@ -1,5 +1,5 @@
 ---
-name: ieee-transactions-writing-methodology-zh
+name: ieee-transactions-paper-writing-methodology-zh
 description: 使用简体中文规划、撰写、修改和审查 IEEE Transactions 学术论文的方法章节与方法图。以总体框架、机制形式化和理论解释阐明创新，回应问题定义，精简非核心工程细节。
 license: MIT
 allowed-tools: Read Write Edit Glob Grep Bash WebSearch WebFetch
@@ -7,7 +7,7 @@ metadata:
   language: zh-CN
   trigger: 使用简体中文规划、撰写、修改和审查 IEEE Transactions 形式的学术论文的方法章节与方法图。
   target-venue: IEEE Transactions journals
-  repository: https://github.com/Arcadiastra/ieee-transactions-writing-zh.git
+  repository: https://github.com/Arcadiastra/ieee-transactions-paper-writing-zh.git
 ---
 
 # Methodology
